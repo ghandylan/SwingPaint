@@ -578,7 +578,7 @@ public class Main extends JFrame implements MouseListener {
             String format = "jpg";
             String fileName = "swingpaint." + format;
             // capture only the drawing area
-            Rectangle screenRect = new Rectangle(750, 300, 660, 534);
+            Rectangle screenRect = new Rectangle(750, 250, 660, 534);
          BufferedImage screenFullImage = robot.createScreenCapture(screenRect);
             ImageIO.write(screenFullImage, format, new File(fileName));
             // show JOptionPane message
