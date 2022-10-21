@@ -10,3 +10,6 @@ Members:
  * GARCIA, ERVIN MIKHAIL - UI designer
  * INOCENCIO, ZARA NAOMI - UI designer
  * TAYAG, DYLAN LOUIS - Programmer
+
+Download niyo dito lods:
+https://downgit.github.io/#/home?url=https://github.com/ghandylan/SwingPaint
