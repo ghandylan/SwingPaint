@@ -11,5 +11,5 @@ Members:
  * INOCENCIO, ZARA NAOMI - UI designer
  * TAYAG, DYLAN LOUIS - Programmer
 
-Download niyo dito lods:
+Download niyo dito lods:\
 https://downgit.github.io/#/home?url=https://github.com/ghandylan/SwingPaint
