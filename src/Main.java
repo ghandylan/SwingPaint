@@ -222,7 +222,7 @@ public final class Main extends JFrame implements MouseListener {
                         dispose();
                     } else if (PromptResult == JOptionPane.NO_OPTION) {
                         System.out.println("User has ended the program");
-                        System.exit(0);
+                        dispose();
                     }
                 } else {
                     String[] ObjButtons = {"Yes", "No"};
@@ -230,7 +230,7 @@ public final class Main extends JFrame implements MouseListener {
                             JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
                     if (PromptResult == JOptionPane.YES_OPTION) {
                         System.out.println("User has ended the program");
-                        System.exit(0);
+                        dispose();
                     }
                 }
             }
