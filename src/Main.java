@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.event.*;
@@ -16,33 +15,27 @@ import java.util.Objects;
 /**
  * @author CS128-8L_BM5 Group Project 1Q2022
  * <p>
- * Members:
- * LARA, CHARLENE GRAZIELLE
- * DELFIN, IVAN ZACHARRIA
- * GARCIA, ERVIN MIKHAIL
- * INOCENCIO, ZARA NAOMI
- * TAYAG, DYLAN LOUIS
+ * Members: LARA, CHARLENE GRAZIELLE DELFIN, IVAN ZACHARRIA GARCIA, ERVIN
+ * MIKHAIL INOCENCIO, ZARA NAOMI TAYAG, DYLAN LOUIS
  */
 public class Main extends JFrame implements MouseListener {
+
     public String selectedTool = "Brush"; // default tool
     public Color toolColor = Color.BLACK; // default brush and shape color
     public Color canvasColor = Color.WHITE; // default canvas color
     public Color eraserColor = canvasColor; // default eraser color
     public int x, y = 0; // default brush and shape coordinates
     public int strokeSize = 7; // default stroke size
+    public boolean drawingIsSaved = false;
 
     /**
      * Creates new form Main
      */
-
-
     public Main() {
         this.setTitle("Swing Paint v1.0.0.0-alpha");
         // set JFrame color to white
         this.getContentPane().setBackground(canvasColor);
         initComponents();
-
-
 
         MouseListener brush = new MouseListener() {
             @Override
@@ -100,7 +93,6 @@ public class Main extends JFrame implements MouseListener {
             @Override
             public void mouseMoved(MouseEvent e) {
             }
-
 
         };
         addMouseMotionListener(brushMotion);
@@ -211,16 +203,27 @@ public class Main extends JFrame implements MouseListener {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent we) {
-                String[] ObjButtons = {"Yes", "No"};
-                int PromptResult = JOptionPane.showOptionDialog(null, "Are you sure you want to exit?", "Exit confirmation",
-                        JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
-                if (PromptResult == JOptionPane.YES_OPTION) {
-                    System.exit(0);
+                if (!drawingIsSaved) {
+                    String[] ObjButtons = {"Save and exit", "Continue drawing"};
+                    int PromptResult = JOptionPane.showOptionDialog(null, "Save the drawing first before exiting?", "Save file confirmation",
+                            JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+                    if (PromptResult == JOptionPane.YES_OPTION) {
+                        saveImage();
+                        dispose();
+                    } else if (PromptResult == JOptionPane.NO_OPTION) {
+
+                    }
+                } else {
+                    String[] ObjButtons = {"Yes", "No"};
+                    int PromptResult = JOptionPane.showOptionDialog(null, "Do you really want to exit?", "Exit confirmation",
+                            JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
+                    if (PromptResult == JOptionPane.YES_OPTION) {
+                        dispose();
+                    }
                 }
             }
         });
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -253,9 +256,13 @@ public class Main extends JFrame implements MouseListener {
         MainMenuBar = new javax.swing.JMenuBar();
         FileMenu = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItem2 = new javax.swing.JMenuItem();
         ColorsMenu = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
         ColorSelectionItem = new javax.swing.JMenuItem();
         ViewMenu = new javax.swing.JMenu();
         ViewDrawing = new javax.swing.JMenuItem();
@@ -343,6 +350,7 @@ public class Main extends JFrame implements MouseListener {
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Arial Black", 2, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SwingPaint-1.png"))); // NOI18N
         jLabel1.setText("SwingPaint");
 
         Clear.setBackground(new java.awt.Color(107, 62, 41));
@@ -441,76 +449,73 @@ public class Main extends JFrame implements MouseListener {
         ToolsPanelLayout.setHorizontalGroup(
             ToolsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ToolsPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(ToolsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(RectangleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LineButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(ToolsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Clear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(CircleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ToolsPanelLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37))
-            .addGroup(ToolsPanelLayout.createSequentialGroup()
                 .addGroup(ToolsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ToolsPanelLayout.createSequentialGroup()
-                        .addGap(82, 82, 82)
-                        .addComponent(TimerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(ToolsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(ToolsPanelLayout.createSequentialGroup()
+                                .addGap(82, 82, 82)
+                                .addComponent(TimerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(ToolsPanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jRadioButton1)
+                                .addGap(18, 18, 18)
+                                .addGroup(ToolsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(ToolsPanelLayout.createSequentialGroup()
+                                        .addComponent(jRadioButton2)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jRadioButton3))
+                                    .addGroup(ToolsPanelLayout.createSequentialGroup()
+                                        .addGap(8, 8, 8)
+                                        .addComponent(jLabel3))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ToolsPanelLayout.createSequentialGroup()
+                                .addGroup(ToolsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(ToolsPanelLayout.createSequentialGroup()
+                                        .addGap(16, 16, 16)
+                                        .addComponent(jLabel2))
+                                    .addGroup(ToolsPanelLayout.createSequentialGroup()
+                                        .addGap(32, 32, 32)
+                                        .addComponent(ColorChosenPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(ToolsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(ToolsPanelLayout.createSequentialGroup()
+                                        .addGap(18, 18, Short.MAX_VALUE)
+                                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(19, 19, 19))
+                                    .addGroup(ToolsPanelLayout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel4)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(ToolsPanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(BrushButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(EraserButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(ToolsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(ToolsPanelLayout.createSequentialGroup()
+                                .addGroup(ToolsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(RectangleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(LineButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(ToolsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Clear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(CircleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(ToolsPanelLayout.createSequentialGroup()
+                                .addComponent(BrushButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(EraserButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap())
-            .addGroup(ToolsPanelLayout.createSequentialGroup()
-                .addGroup(ToolsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(ToolsPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jRadioButton1)
-                        .addGap(18, 18, 18)
-                        .addGroup(ToolsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(ToolsPanelLayout.createSequentialGroup()
-                                .addComponent(jRadioButton2)
-                                .addGap(18, 18, 18)
-                                .addComponent(jRadioButton3))
-                            .addGroup(ToolsPanelLayout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addComponent(jLabel3))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ToolsPanelLayout.createSequentialGroup()
-                        .addGroup(ToolsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(ToolsPanelLayout.createSequentialGroup()
-                                .addGap(16, 16, 16)
-                                .addComponent(jLabel2))
-                            .addGroup(ToolsPanelLayout.createSequentialGroup()
-                                .addGap(32, 32, 32)
-                                .addComponent(ColorChosenPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(ToolsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(ToolsPanelLayout.createSequentialGroup()
-                                .addGap(18, 18, Short.MAX_VALUE)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(19, 19, 19))
-                            .addGroup(ToolsPanelLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel4)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         ToolsPanelLayout.setVerticalGroup(
             ToolsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ToolsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(ToolsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButton2)
                     .addComponent(jRadioButton1)
                     .addComponent(jRadioButton3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(ToolsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel2))
@@ -542,6 +547,7 @@ public class Main extends JFrame implements MouseListener {
         FileMenu.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuItem1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jMenuItem1.setText("New File");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -549,8 +555,10 @@ public class Main extends JFrame implements MouseListener {
             }
         });
         FileMenu.add(jMenuItem1);
+        FileMenu.add(jSeparator1);
 
         jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuItem3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jMenuItem3.setText("Save");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -558,7 +566,10 @@ public class Main extends JFrame implements MouseListener {
             }
         });
         FileMenu.add(jMenuItem3);
+        FileMenu.add(jSeparator2);
 
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0));
+        jMenuItem2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jMenuItem2.setText("Exit");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -577,6 +588,17 @@ public class Main extends JFrame implements MouseListener {
             }
         });
 
+        jMenuItem4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jMenuItem4.setText("Select canvas color");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        ColorsMenu.add(jMenuItem4);
+        ColorsMenu.add(jSeparator3);
+
+        ColorSelectionItem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         ColorSelectionItem.setText("Select color");
         ColorSelectionItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -590,6 +612,7 @@ public class Main extends JFrame implements MouseListener {
         ViewMenu.setText("View");
         ViewMenu.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
 
+        ViewDrawing.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         ViewDrawing.setText("View painting");
         ViewDrawing.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -632,7 +655,6 @@ public class Main extends JFrame implements MouseListener {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
     public void saveImage() {
         // save my paint drawing as an image using Robot
         try {
@@ -646,6 +668,7 @@ public class Main extends JFrame implements MouseListener {
             // show JOptionPane message
             JOptionPane.showMessageDialog(null, "Image saved as " + fileName);
             System.out.println("A full screenshot saved!");
+            drawingIsSaved = true;
         } catch (AWTException | IOException ex) {
             System.err.println(ex);
         }
@@ -667,8 +690,6 @@ public class Main extends JFrame implements MouseListener {
         }
     }
 
-
-
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -686,7 +707,6 @@ public class Main extends JFrame implements MouseListener {
             g.setColor(toolColor);
         }
     }
-
 
     public void mouseClicked(MouseEvent e) {
 
@@ -739,33 +759,38 @@ public class Main extends JFrame implements MouseListener {
 
     private void ColorSelectionItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ColorSelectionItemActionPerformed
         // TODO add your handling code here:
-        Color color = JColorChooser.showDialog(this, "Choose a color", Color.BLACK);
+        Color color = JColorChooser.showDialog(this, "Choose a brush color", Color.BLACK);
         toolColor = color;
         ColorChosenPanel.setBackground(color);
     }//GEN-LAST:event_ColorSelectionItemActionPerformed
 
     private void ClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearActionPerformed
         // TODO add your handling code here:
-        this.getContentPane().setBackground(canvasColor);
-        // remove paint from the JFrame
-        this.repaint();
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(this, "Do you really want to clear your drawings?", "Confirmation", dialogButton);
+        if (dialogResult == 0) {
+            this.getContentPane().setBackground(canvasColor);
+            // remove paint from the JFrame
+            this.repaint();
+        }
+
 
     }//GEN-LAST:event_ClearActionPerformed
 
     private void CreditsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreditsActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "SwingPaint v1.0.0-alpha\n\nCS128-8L_BM5 Group Project 1Q2022\n\n" +
-                " Members:\n" +
-                " * LARA, CHARLENE GRAZIELLE\n" +
-                " * DELFIN, IVAN ZACHARRIA\n" +
-                " * GARCIA, ERVIN MIKHAIL\n" +
-                " * INOCENCIO, ZARA NAOMI\n" +
-                " * TAYAG, DYLAN LOUIS");
+        JOptionPane.showMessageDialog(null, "SwingPaint v1.0.0-alpha\n\nCS128-8L_BM5 Group Project 1Q2022\n\n"
+                + " Members:\n"
+                + "  LARA, CHARLENE GRAZIELLE\n"
+                + "  DELFIN, IVAN ZACHARRIA\n"
+                + "  GARCIA, ERVIN MIKHAIL\n"
+                + "  INOCENCIO, ZARA NAOMI\n"
+                + "  TAYAG, DYLAN LOUIS");
     }//GEN-LAST:event_CreditsActionPerformed
 
     private void ColorChosenPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ColorChosenPanelMouseClicked
         // TODO add your handling code here:
-        Color color = JColorChooser.showDialog(this, "Choose a color", Color.BLACK);
+        Color color = JColorChooser.showDialog(this, "Choose a brush color", Color.BLACK);
         ColorChosenPanel.setBackground(color);
         toolColor = color;
     }//GEN-LAST:event_ColorChosenPanelMouseClicked
@@ -789,7 +814,6 @@ public class Main extends JFrame implements MouseListener {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
-        // add exit confirmation
         int dialogButton = JOptionPane.YES_NO_OPTION;
         int dialogResult = JOptionPane.showConfirmDialog(this, "Are you sure you want to exit?", "Exit", dialogButton);
         if (dialogResult == 0) {
@@ -823,7 +847,7 @@ public class Main extends JFrame implements MouseListener {
 
     private void ColorChosenPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ColorChosenPanel1MouseClicked
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_ColorChosenPanel1MouseClicked
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
@@ -833,12 +857,24 @@ public class Main extends JFrame implements MouseListener {
         int dialogResult = JOptionPane.showConfirmDialog(this, "Changing canvas color may erase your drawings. Continue?", "Clear Canvas", dialogButton);
         if (dialogResult == 0) {
             // if yes, change canvas color
-            canvasColor = JColorChooser.showDialog(this, "Choose a color", Color.BLACK);
+            canvasColor = JColorChooser.showDialog(this, "Choose a canvas color", Color.BLACK);
             jPanel1.setBackground(canvasColor);
             this.getContentPane().setBackground(canvasColor);
             eraserColor = canvasColor;
         }
     }//GEN-LAST:event_jPanel1MouseClicked
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(this, "Changing canvas color may erase your drawings. Continue?", "Clear Canvas", dialogButton);
+        if (dialogResult == 0) {
+            // if yes, change canvas color
+            Color color = JColorChooser.showDialog(this, "Choose a canvas color", Color.BLACK);
+            toolColor = color;
+            ColorChosenPanel.setBackground(color);
+        }
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -900,9 +936,13 @@ public class Main extends JFrame implements MouseListener {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
     // End of variables declaration//GEN-END:variables
 }
