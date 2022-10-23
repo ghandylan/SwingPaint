@@ -48,10 +48,9 @@ public final class Main extends JFrame implements MouseListener {
     public Color eraserColor = canvasColor; // default eraser color
     public int x, y = 0; // default brush and shape coordinates
     public int strokeSize = 7; // default stroke size 
-    public boolean drawingIsSaved = false;   
+    public boolean drawingIsSaved = false;
     public static int INCREMENT = 1000;
     public static int BASE_TIME = 0;
-    
     public Timer timer = new Timer();
     /**
      * Creates new form Main
@@ -686,8 +685,8 @@ public final class Main extends JFrame implements MouseListener {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private class ElapsedTime extends TimerTask {
-        private int seconds = 0; private int minutes = 0; private int hours = 0;
+    public class ElapsedTime extends TimerTask {
+        private int seconds, minutes, hours = 0;
         @Override
         public void run() {
             String time = String.format("%02d:%02d:%02d", hours, minutes, seconds);
@@ -702,7 +701,6 @@ public final class Main extends JFrame implements MouseListener {
             TimeLabel.setText(time);
         }
     }
-    
     public void saveImage() throws IOException, AWTException {
         try {
             Robot robot = new Robot();
