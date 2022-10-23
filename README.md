@@ -25,7 +25,7 @@ This is a **group** project!
 
 # How to run:
 1. Download the source here\
-  https://downgit.github.io/#/home?url=https://github.com/ghandylan/SwingPaint\
+  https://github.com/ghandylan/SwingPaint/archive/refs/heads/master.zip
 2. Open the project in netbeans\
    Run Main.java
 3. Enjoy :D
