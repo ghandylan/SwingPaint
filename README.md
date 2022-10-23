@@ -25,8 +25,8 @@ This is a **group** project!
 &nbsp;
 
 # How to run:
-1. Download the .zip file here\
-  https://github.com/ghandylan/SwingPaint/archive/refs/heads/master.zip
+1. Download the .zip file\
+   https://github.com/ghandylan/SwingPaint/archive/refs/heads/master.zip or https://drive.google.com/file/d/1LxAQUKbvp5sjYkLbib0O8vuT9ax_jYw2/view?usp=sharing
 2. Unzip the downloaded file (SwingPaint-master.zip)
 3. Open the project in netbeans\
    Run Main.java
