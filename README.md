@@ -4,6 +4,7 @@ GUI paint app made with Java Swing
 
 CS128-8L_BM5 Group Project 1Q2022\
 This is a **group** project!
+***Each contributor played a crucial role in the development of the system, bringing their unique skills and expertise to the project.***
 
 ### Members: 
  * LARA, CHARLENE GRAZIELLE - Project leader
