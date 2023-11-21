@@ -2,7 +2,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)\
 GUI paint app made with Java Swing
 
-CS128-8L_BM5 Group Project 1Q2022\
 This is a **group** project!
 
 ## **Project Attribution**
